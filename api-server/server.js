@@ -3,25 +3,14 @@
 var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
-// var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-// var cors = require('cors');
-// var env = require('./config/env');
-// var fs = require('fs');
 
-// //https key/cert setup
-// var hskey = fs.readFileSync(env.HTTPS_KEY);
-// var hscert = fs.readFileSync(env.HTTPS_CERT);
-// var options = {key: hskey, cert:hscert};
 
 //set server options
 var app = express();
-// var router = express.Router();
 var port = process.env.API_PORT || 3001;
-// mongoose.connect(env.DATABASE);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(cors());
 
 //define graphQL query schema
 var schema = buildSchema(`
@@ -36,8 +25,6 @@ var root = {
 };
 
 //api-route for eos block info
-// app.use('/block', router);
-
 app.use('/block', graphqlHTTP({
   schema: schema,
   rootValue: root,
