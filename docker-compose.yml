@@ -1,0 +1,22 @@
+version: "3"
+services:
+  eosio:
+    image: eosio/eos:dawn3x
+    ports:
+      - "8888:8888"
+      - "9876:9876"
+    command: /opt/eosio/bin/nodeosd.sh --resync-blockchain
+    volumes:
+      - ./eosio-volume/config:/opt/eosio/bin/data-dir
+      - ./eosio-volume/data:/opt/eosio/var
+  api-server:
+    container_name: api-server
+    build:
+      context: ./api-server
+      dockerfile: Dockerfile-server
+    ports:
+      - "3001:3001"
+    links:
+      - eosio
+    volumes:
+      - ./api-server:/usr/src/app
