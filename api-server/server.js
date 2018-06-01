@@ -28,12 +28,13 @@ const config = {
 
 const eos = Eos.Localnet(config)
 
-eos.getBlock(1).then(blockInfo => {console.log(blockInfo)});
+// eos.getBlock(1).then(blockInfo => {console.log(blockInfo)});
+// eos.getInfo({}).then(result => console.log(result));
 
 //define graphQL query schema
 const schema = buildSchema(`
   type Query {
-    block(number: Int): String
+    block(numbers: [Int]): String
   }
 `);
 
@@ -42,6 +43,24 @@ const root = {
   block: (number) => "24c38025d3df33rw3d3231"
 };
 
+//function for fetching block date
+async function getBlockInfo(blockNum){
+  blockNum = blockNum || -1;
+  if (blockNum === -1){
+    const data = eos.getInfo({});
+    console.log(await data);
+  } 
+  else {
+    try{
+      let data = await eos.getBlock(blockNum)
+    }
+    catch(e){
+      console.log("error: " + String(e))
+    }
+  }
+}
+
+getBlockInfo(5000);
 
 //api-route for eos block info
 app.use('/block', graphqlHTTP({
