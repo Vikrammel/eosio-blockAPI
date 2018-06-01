@@ -53,6 +53,7 @@ async function getBlockInfo(blockNum){
   else {
     try{
       let data = await eos.getBlock(blockNum)
+      console.log(await data)
     }
     catch(e){
       console.log("error: " + String(e))
@@ -60,7 +61,7 @@ async function getBlockInfo(blockNum){
   }
 }
 
-getBlockInfo(5000);
+getBlockInfo(5);
 
 //api-route for eos block info
 app.use('/block', graphqlHTTP({
