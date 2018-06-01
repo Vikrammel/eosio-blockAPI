@@ -1,28 +1,47 @@
 'use strict'
 
-var express = require('express');
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
-var bodyParser = require('body-parser');
-
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+const bodyParser = require('body-parser');
+const Eos = require('eosjs')
 
 //set server options
-var app = express();
-var port = process.env.API_PORT || 3001;
+const app = express();
+const port = process.env.API_PORT || 3001;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//eos config options
+const config = {
+  chainId: null, // 32 byte (64 char) hex string
+  httpEndpoint: 'http://eosio:8888',
+  mockTransactions: () => 'pass', // or 'fail'
+  transactionHeaders: (expireInSeconds, callback) => {
+    callback(null/*error*/, headers)
+  },
+  expireInSeconds: 60,
+  broadcast: true,
+  debug: false,
+  sign: true
+}
+
+const eos = Eos.Localnet(config)
+
+eos.getBlock(1).then(blockInfo => {console.log(blockInfo)});
+
 //define graphQL query schema
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Query {
     block(number: Int): String
   }
 `);
 
 //define root query
-var root = { 
-  block: (number) => "24c38025d3df33rw3d3231" 
+const root = { 
+  block: (number) => "24c38025d3df33rw3d3231"
 };
+
 
 //api-route for eos block info
 app.use('/block', graphqlHTTP({
