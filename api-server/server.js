@@ -28,9 +28,6 @@ const config = {
 
 const eos = Eos.Localnet(config)
 
-// eos.getBlock(1).then(blockInfo => {console.log(blockInfo)});
-// eos.getInfo({}).then(result => console.log(result));
-
 //define graphQL query schema
 const schema = buildSchema(`
   type Query {
@@ -40,28 +37,40 @@ const schema = buildSchema(`
 
 //define root query
 const root = { 
-  block: (number) => "24c38025d3df33rw3d3231"
+  block: (number) => getBlockData().then(data => data['id'])
 };
 
-//function for fetching block date
-async function getBlockInfo(blockNum){
-  blockNum = blockNum || -1;
-  if (blockNum === -1){
-    const data = eos.getInfo({});
-    console.log(await data);
-  } 
-  else {
-    try{
-      let data = await eos.getBlock(blockNum)
-      console.log(await data)
-    }
-    catch(e){
-      console.log("error: " + String(e))
-    }
+//wrap EOS API call to fetch block in try/catch function 
+//since it's called multiple times
+async function fetchBlock(blockNum){
+  try{
+    return await eos.getBlock(blockNum);
+  }
+  catch(e){
+    console.log("EOS API error: " + String(e))
+    return;
   }
 }
 
-getBlockInfo(5);
+//function for fetching block data
+async function getBlockData(blockNum){
+  blockNum = blockNum || -1;
+  if (blockNum === -1){
+    let data = eos.getInfo({});
+    const info = await data;
+    // console.log(info);
+    const lastBlockNum = info['head_block_num'];
+    return await fetchBlock(lastBlockNum)
+    
+  } 
+  else {
+      return await fetchBlock(blockNum);
+  }
+}
+
+//temp tests
+getBlockData()
+.then(data => console.log(data));
 
 //api-route for eos block info
 app.use('/block', graphqlHTTP({
