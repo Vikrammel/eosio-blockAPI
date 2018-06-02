@@ -29,18 +29,43 @@ const config = {
 const eos = Eos.Localnet(config)
 
 //define graphQL query schema
+// const schema = buildSchema(`
+//   type region {
+//     region: Int
+//     cycles_summary: [String]
+//   }
+//   type Block {
+//     previous: String
+//     timestamp: String
+//     transaction_mroot: String
+//     action_mroot: String
+//     block_mroot: String
+//     producer: String
+//     schedule_version: Int
+//     new_producers: [String]
+//     producer_signature: String
+//     regions: [region]
+//     input_transaction: [String]
+//     id: String!
+//     block_num: Int!
+//     ref_block_prefix: Int
+//   }
+//   type Query {
+//     block(numbers: [Int]): Block
+//   }
+// `);
 const schema = buildSchema(`
   type Query {
     block(numbers: [Int]): String
-  }
-`);
+  }  
+`)
 
 //define root query
 const rootQuery = { 
   block: getBlockData().then(data => JSON.stringify(data))
 };
 
-//function to continuously update the root query so it remains
+//function to continuously update the root query every second so it remains
 //the latest block
 setInterval(() => {getBlockData().then(data => rootQuery.block = JSON.stringify(data))}, 1000)
 
