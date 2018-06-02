@@ -36,12 +36,16 @@ const schema = buildSchema(`
 `);
 
 //define root query
-const root = { 
-  block: (number) => getBlockData().then(data => data['id'])
+const rootQuery = { 
+  block: getBlockData().then(data => JSON.stringify(data))
 };
 
+//function to continuously update the root query so it remains
+//the latest block
+setInterval(() => {getBlockData().then(data => rootQuery.block = JSON.stringify(data))}, 1000)
+
 //wrap EOS API call to fetch block in try/catch function 
-//since it's called multiple times
+//to handle promise rejection since it's called multiple times
 async function fetchBlock(blockNum){
   try{
     return await eos.getBlock(blockNum);
@@ -58,10 +62,8 @@ async function getBlockData(blockNum){
   if (blockNum === -1){
     let data = eos.getInfo({});
     const info = await data;
-    // console.log(info);
     const lastBlockNum = info['head_block_num'];
     return await fetchBlock(lastBlockNum)
-    
   } 
   else {
       return await fetchBlock(blockNum);
@@ -69,13 +71,12 @@ async function getBlockData(blockNum){
 }
 
 //temp tests
-getBlockData()
-.then(data => console.log(data));
+// setInterval(getBlockData().then(data => console.log(data)));
 
 //api-route for eos block info
 app.use('/block', graphqlHTTP({
   schema: schema,
-  rootValue: root,
+  rootValue: rootQuery,
   graphiql: true,
 }));
 
