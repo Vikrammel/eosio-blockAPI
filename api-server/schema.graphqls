@@ -64,6 +64,7 @@ type Block {
     ref_block_prefix: String
     input_transactions: [InputTransaction]
     txn_count: Int
+    error: String
 }
 type Query {
     block(numbers: [Int]): Block

@@ -3,9 +3,8 @@
 //can't use ES6 imports without babel-node
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const { buildSchema, printSchema } = require('graphql');
+const { buildSchema } = require('graphql');
 const bodyParser = require('body-parser');
-const getSchemaFromData = require('graphql-schema-from-json').getSchemaFromData;
 const fs = require('fs')
 const Eos = require('eosjs')
 
@@ -49,7 +48,7 @@ const rootQuery = {
           }
         )
         .catch(
-          (err) => {return {}}
+          (e) => {return {error: e.message}}
         )
 };
 
@@ -64,7 +63,7 @@ setInterval(() =>
       }
     )
   }
-  , 1000)
+  , 500)
 
 //wrap EOS API call to fetch block in try/catch function 
 //to handle bad block nums since it's called multiple times
