@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const Eos = require('eosjs');
 const cluster = require('cluster');
+const mongoose = require('mongoose');
+const env = require('./env');
 
 // //coordinator thread for multi-threading
 if (cluster.isMaster){
@@ -30,11 +32,12 @@ else{
   const port = process.env.API_PORT || 3001;
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  mongoose.connect(env.DATABASE);
 
   //eos config options
   const config = {
     chainId: null, // 32 byte (64 char) hex string
-    httpEndpoint: 'http://eosio:8888',
+    httpEndpoint: env.EOSNODE,
     mockTransactions: () => 'pass', // or 'fail'
     transactionHeaders: (expireInSeconds, callback) => {
       callback(null/*error*/, headers)
@@ -50,7 +53,7 @@ else{
   //define graphQL query schema
   //some numbers like block_num and ref_block_prefix are better as String 
   //since they are too large to be represented as a 32-bit Int type by GraphQL
-  const schemaFile = fs.readFileSync(__dirname + '/schema.graphqls', 'utf8')
+  const schemaFile = fs.readFileSync(__dirname + '/models/schema.graphqls', 'utf8')
   const schema = buildSchema(schemaFile)
 
   //define root query
