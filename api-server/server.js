@@ -1,9 +1,11 @@
 'use strict'
 
+//can't use ES6 imports without babel-node
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
 const bodyParser = require('body-parser');
+const fs = require('fs')
 const Eos = require('eosjs')
 
 //set server options
@@ -32,49 +34,21 @@ const eos = Eos.Localnet(config)
 //most numbers like block_num and ref_block_prefix are better as String 
 //since sometimes it is too large to be represented as a 32-bit Int 
 //type by GraphQL
-
-const schema = buildSchema(`
-  type Block {
-    previous: String
-    timestamp: String
-    transaction_mroot: String
-    action_mroot: String
-    block_mroot: String
-    producer: String
-    schedule_version: Float
-    producer_signature: String
-    id: String
-    block_num: Int
-    ref_block_prefix: String
-    new_producers: [String]
-    txn_count: Int
-  }
-  type Query {
-    block(numbers: [Int]): Block
-  }
-`);
+const schemaFile = fs.readFileSync(__dirname + '/schema.graphqls', 'utf8')
+const schema = buildSchema(schemaFile)
 
 //define root query
 const rootQuery = { 
   block: getBlockData()
         .then(data => 
           { 
-            return {
-              previous: data.previous,
-              timestamp: data.timestamp,
-              transaction_mroot: data.transaction_mroot,
-              action_mroot: data.action_mroot,
-              block_mroot: data.block_mroot,
-              producer: data.producer,
-              schedule_version: data.schedule_version,
-              producer_signature: data.producer_signature,
-              id: data.id,
-              block_num: data.block_num,
-              ref_block_prefix: data.ref_block_prefix,
-              new_producers: data.new_producers,
-              txn_count: data.input_transactions.length
-            } 
+            returnBlockObj = data
+            returnBlockObj["txn_count"] = data.input_transactions.length
+            return returnBlockObj
           }
+        )
+        .catch(
+          (e) => {return {error: e.message}}
         )
 };
 
@@ -84,25 +58,12 @@ setInterval(() =>
   { getBlockData()
     .then(data => 
       {
-        rootQuery.block = {
-          previous: data.previous,
-          timestamp: data.timestamp,
-          transaction_mroot: data.transaction_mroot,
-          action_mroot: data.action_mroot,
-          block_mroot: data.block_mroot,
-          producer: data.producer,
-          schedule_version: data.schedule_version,
-          producer_signature: data.producer_signature,
-          id: data.id,
-          block_num: data.block_num,
-          ref_block_prefix: data.ref_block_prefix,
-          new_producers: data.new_producers,
-          txn_count: data.input_transactions.length
-        }
+        rootQuery.block = data
+        rootQuery.block.txn_count = data.input_transactions.length
       }
     )
   }
-  , 1000)
+  , 500)
 
 //wrap EOS API call to fetch block in try/catch function 
 //to handle bad block nums since it's called multiple times
@@ -131,6 +92,7 @@ async function getBlockData(blockNum){
 }
 
 //temp tests
+// console.log(printSchema(schema))
 // setInterval(getBlockData().then(data => console.log(data)));
 // getBlockData().then(data => {
 //   console.log(data)
