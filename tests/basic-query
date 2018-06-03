@@ -1,0 +1,7 @@
+{
+  block {
+    id
+    timestamp
+    txn_count
+  }
+}

@@ -1,0 +1,70 @@
+type ActionData {
+    to: String
+    from: String
+    quantity: String
+    memo: String
+ }
+type Auth {
+    actor: String
+    permission: String
+}
+type Action {
+    account: String
+    name: String
+    authorization: [Auth]
+    data: ActionData
+    hex_data: String
+}
+type InputTransactionData {
+    expiration: String
+    region: Int
+    ref_block_num: String
+    ref_block_prefix: String
+    packed_bandwidth_words: Int
+    context_free_cpu_bandwidth: Int
+    context_free_actions: [Action]
+    actions: [Action]
+}
+type InputTransaction {
+    signatures: [String]
+    compression: String
+    hex_data: String
+    data: InputTransactionData
+}
+type Lock {
+    account: String
+    scope: String
+}
+type Transaction {
+    status: String
+    id: String
+}
+type Cycle {
+    read_locks: [Lock]
+    write_locks: [Lock]
+    transactions: [Transaction]
+}
+type Region {
+    region: Int
+    cycles_summary: [[Cycle]]
+}
+type Block {
+    previous: String
+    timestamp: String
+    transaction_mroot: String
+    action_mroot: String
+    block_mroot: String
+    producer: String
+    new_producers: [String]
+    schedule_version: Float
+    producer_signature: String
+    regions: [Region]
+    id: String
+    block_num: String
+    ref_block_prefix: String
+    input_transactions: [InputTransaction]
+    txn_count: Int
+}
+type Query {
+    block(numbers: [Int]): Block
+}
