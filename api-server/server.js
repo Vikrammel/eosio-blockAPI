@@ -29,7 +29,7 @@ const config = {
 const eos = Eos.Localnet(config)
 
 //define graphQL query schema
-//numbers like block_num and ref_block_prefix are better as String 
+//most numbers like block_num and ref_block_prefix are better as String 
 //since sometimes it is too large to be represented as a 32-bit Int 
 //type by GraphQL
 
@@ -47,6 +47,7 @@ const schema = buildSchema(`
     block_num: Int
     ref_block_prefix: String
     new_producers: [String]
+    txn_count: Int
   }
   type Query {
     block(numbers: [Int]): Block
@@ -58,7 +59,6 @@ const rootQuery = {
   block: getBlockData()
         .then(data => 
           { 
-
             return {
               previous: data.previous,
               timestamp: data.timestamp,
@@ -71,7 +71,8 @@ const rootQuery = {
               id: data.id,
               block_num: data.block_num,
               ref_block_prefix: data.ref_block_prefix,
-              new_producers: data.new_producers
+              new_producers: data.new_producers,
+              txn_count: data.input_transactions.length
             } 
           }
         )
@@ -95,7 +96,8 @@ setInterval(() =>
           id: data.id,
           block_num: data.block_num,
           ref_block_prefix: data.ref_block_prefix,
-          new_producers: data.new_producers
+          new_producers: data.new_producers,
+          txn_count: data.input_transactions.length
         }
       }
     )
