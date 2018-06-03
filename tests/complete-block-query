@@ -2,6 +2,9 @@
   block(numbers: [241, 142, 24]) {
     id
     timestamp
+    block_num
+    txn_count
+    ref_block_prefix
     regions{
       region
       cycles_summary{
@@ -19,9 +22,6 @@
         }
       }
     }
-    block_num
-		txn_count
-    ref_block_prefix
     input_transactions {
       signatures
       compression

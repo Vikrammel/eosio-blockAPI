@@ -1,0 +1,23 @@
+$ siege -c 300 -b -t20s http://localhost:3001/blocks
+
+output
+
+** SIEGE 3.0.8
+** Preparing 300 concurrent users for battle.
+The server is now under siege...
+Lifting the server siege...      done.
+
+Transactions:		       74556 hits
+Availability:		      100.00 %
+Elapsed time:		       19.29 secs
+Data transferred:	        3.77 MB
+Response time:		        0.08 secs
+Transaction rate:	     3865.01 trans/sec
+Throughput:		        0.20 MB/sec
+Concurrency:		      294.65
+Successful transactions:           0
+Failed transactions:	           0
+Longest transaction:	        7.10
+Shortest transaction:	        0.00
+
+
