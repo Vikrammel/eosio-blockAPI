@@ -9,12 +9,18 @@ const fs = require('fs');
 const Eos = require('eosjs');
 const cluster = require('cluster');
 
-//coordinator thread for multi-threading
+// //coordinator thread for multi-threading
 if (cluster.isMaster){
   const cpuCount = require('os').cpus().length;
   for (let i = 0; i< cpuCount; i++){
     cluster.fork();
   }
+
+  // spawn new worker thread on thread exit so we don't run out of worker
+  // threads upon thread death
+  cluster.on('exit', () => {
+    cluster.fork();
+  });
 }
 
 //working threads' code
@@ -115,7 +121,7 @@ else{
   // )
 
   //api-route for eos block info
-  app.use('/block', graphqlHTTP({
+  app.use('/blocks', graphqlHTTP({
     schema: schema,
     rootValue: rootQuery,
     graphiql: true,
