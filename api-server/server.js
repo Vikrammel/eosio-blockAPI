@@ -78,8 +78,13 @@ else{
     { getBlockData()
       .then( (data) => {
         if (!data.error){
-          rootQuery.block = data
-          rootQuery.block.txn_count = data.input_transactions.length
+          try{
+            rootQuery.block = data
+            rootQuery.block.txn_count = data.input_transactions.length
+          }
+          catch(err){
+            // console.log('bad');
+          }
         }
       })
     }
@@ -89,44 +94,39 @@ else{
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
     try{
-      const block = await eos.getBlock(blockNum);
-      try{
-        const dbBlock = await Block.getBlockByNum(blockNum);
-        if(dbBlock != null){
-          return await dbBlock;
-        }
-        try{
-          const addedBlock = await Block.addBlock(await block);
-          if(addedBlock != null){
-            // console.log(addedBlock);
-            return await addedBlock;
-          }
-          return await block;
-        }
-        catch(err){
-          //error adding block to cache, just return block
-          return await block;
-        }
+      const dbBlock = await Block.getBlockByNum(blockNum);
+      if(await dbBlock){
+        return await dbBlock;
       }
-      catch(err){
-        //block not in DB, trying to find it returned an error
+      else {
         try{
-          const addedBlock = await Block.addBlock(await block);
-          if(addedBlock != null){
-            return await addedBlock;
+          const block = await eos.getBlock(blockNum);
+          try{
+            const addedBlock = await Block.addBlock(await block);
+            // console.log(await addedBlock);
+            return await block;
           }
-          //add to db failed
-          return await block;
+          catch(err){
+            //error adding block to cache, just return block
+            return await block;
+          }
         }
         catch(err){
-          //failed to add block to cache, return block
-          return await block;
+          console.log("EOS API returned an error; check block number")
+          return {error: String(err)};
         }
       }
     }
     catch(err){
-      console.log("EOS API returned an error; check block number")
-      return {error: String(err)};
+      //block not in DB, trying to find it returned an error
+      try{
+        const addedBlock = await Block.addBlock(await block);
+        return await block;
+      }
+      catch(err){
+        //failed to add block to cache, return block
+        return await block;
+      }
     }
   }
 

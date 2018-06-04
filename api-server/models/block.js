@@ -78,7 +78,7 @@ const Block = module.exports = mongoose.model('Block', BlockSchema);
 //controller functions for block model in db
 module.exports.getBlockByNum = async function (block_num) {
     const query = { block_num: block_num };
-    Block.findOne(query, () => {} );
+    return await Block.findOne(query, () => {} );
 }
 
 module.exports.addBlock = async function (newBlock) {
@@ -101,6 +101,6 @@ module.exports.addBlock = async function (newBlock) {
             input_transactions: newBlock.input_transactions
         });
         // console.log(blockForDB);
-        blockForDB.save( ()=> { /* console.log("new block added to db")*/ } );
+        blockForDB.save( () => { /*console.log("new block added to db")*/ } );
     }
 }
