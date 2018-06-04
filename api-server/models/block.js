@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 //create instance of mongoose.schema. Schema takes an object
 //that shows the shape/structure of db entries
 
-const action = {
+let action = {
     account: String,
     name: String,
     authorization: [{
@@ -23,7 +23,7 @@ const action = {
     hex_data: String
 }
 
-const BlockSchema = new Schema({
+let BlockSchema = new Schema({
     id: String,
     block_num: String,
     timestamp: String,
@@ -36,6 +36,7 @@ const BlockSchema = new Schema({
     ref_block_prefix: String,
     new_producers: [String],
     producer_signature: String,
+    error: String,
     regions: [{
         region: Number,
         cycles_summary: [[{
@@ -73,3 +74,33 @@ const BlockSchema = new Schema({
 
 //export module to use in server.js
 const Block = module.exports = mongoose.model('Block', BlockSchema);
+
+//controller functions for block model in db
+module.exports.getBlockByNum = async function (block_num) {
+    const query = { block_num: block_num };
+    Block.findOne(query, () => {} );
+}
+
+module.exports.addBlock = async function (newBlock) {
+    if(!newBlock.error){
+        const blockForDB = new Block({
+            id: newBlock.id,
+            block_num: newBlock.block_num,
+            timestamp: newBlock.timestamp,
+            txn_count: newBlock.txn_count,
+            previous: newBlock.previous,
+            transaction_mroot: newBlock.transaction_mroot,
+            action_mroot: newBlock.action_mroot,
+            block_mroot: newBlock.block_mroot,
+            producer: newBlock.producer,
+            ref_block_prefix: newBlock.ref_block_prefix,
+            new_producers: newBlock.new_producers,
+            producer_signature: newBlock.producer_signature,
+            error: newBlock.error,
+            regions: newBlock.regions,
+            input_transactions: newBlock.input_transactions
+        });
+        // console.log(blockForDB);
+        blockForDB.save( ()=> { /* console.log("new block added to db")*/ } );
+    }
+}

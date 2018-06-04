@@ -10,8 +10,9 @@ const Eos = require('eosjs');
 const cluster = require('cluster');
 const mongoose = require('mongoose');
 const env = require('./env');
+const Block = require('./models/block');
 
-// //coordinator thread for multi-threading
+// coordinator thread for multi-threading
 if (cluster.isMaster){
   const cpuCount = require('os').cpus().length;
   for (let i = 0; i< cpuCount; i++){
@@ -50,9 +51,9 @@ else{
 
   const eos = Eos.Localnet(config)
 
-  //define graphQL query schema
-  //some numbers like block_num and ref_block_prefix are better as String 
-  //since they are too large to be represented as a 32-bit Int type by GraphQL
+  /*define graphQL query schema
+    some numbers like block_num and ref_block_prefix are better as String 
+    since they are too large to be represented as a 32-bit Int type by GraphQL */
   const schemaFile = fs.readFileSync(__dirname + '/models/schema.graphqls', 'utf8')
   const schema = buildSchema(schemaFile)
 
@@ -67,7 +68,7 @@ else{
             }
           )
           .catch(
-            (e) => {return {error: e.message}}
+            (e) => {return {error: String(e)}}
           )
   };
 
@@ -75,41 +76,70 @@ else{
   //the latest block
   setInterval(() => 
     { getBlockData()
-      .then(data => 
-        {
+      .then( (data) => {
+        if (!data.error){
           rootQuery.block = data
           rootQuery.block.txn_count = data.input_transactions.length
         }
-      )
-      .catch(
-        (e) => {return {error: e.message}}
-      )
+      })
     }
-    , 500)
+    , 500);
 
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
     try{
-      return await eos.getBlock(blockNum);
+      const block = await eos.getBlock(blockNum);
+      try{
+        const dbBlock = await Block.getBlockByNum(blockNum);
+        if(dbBlock != null){
+          return await dbBlock;
+        }
+        try{
+          const addedBlock = await Block.addBlock(await block);
+          if(addedBlock != null){
+            // console.log(addedBlock);
+            return await addedBlock;
+          }
+          return await block;
+        }
+        catch(err){
+          //error adding block to cache, just return block
+          return await block;
+        }
+      }
+      catch(err){
+        //block not in DB, trying to find it returned an error
+        try{
+          const addedBlock = await Block.addBlock(await block);
+          if(addedBlock != null){
+            return await addedBlock;
+          }
+          //add to db failed
+          return await block;
+        }
+        catch(err){
+          //failed to add block to cache, return block
+          return await block;
+        }
+      }
     }
-    catch(e){
+    catch(err){
       console.log("EOS API returned an error; check block number")
-      return {error: e.message};
+      return {error: String(err)};
     }
   }
 
-  //function for fetching block data
+  //function for fetching block data from db or EOS node
   async function getBlockData(blockNum){
     blockNum = blockNum || -1;
     if (blockNum === -1){
-      let data = eos.getInfo({});
-      const info = await data;
-      const lastBlockNum = info['head_block_num'];
-      return await fetchBlock(lastBlockNum)
-    } 
+      const data = await eos.getInfo({});
+      const lastBlockNum = await data['head_block_num'];
+      return await fetchBlock(await lastBlockNum);
+    }
     else {
-        return await fetchBlock(blockNum);
+      return await fetchBlock(blockNum);
     }
   }
 
