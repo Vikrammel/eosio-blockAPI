@@ -8,8 +8,11 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const Eos = require('eosjs');
 const cluster = require('cluster');
+const mongoose = require('mongoose');
+const env = require('./env');
+const Block = require('./models/block');
 
-// //coordinator thread for multi-threading
+// coordinator thread for multi-threading
 if (cluster.isMaster){
   const cpuCount = require('os').cpus().length;
   for (let i = 0; i< cpuCount; i++){
@@ -30,11 +33,12 @@ else{
   const port = process.env.API_PORT || 3001;
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
+  mongoose.connect(env.DATABASE);
 
   //eos config options
   const config = {
     chainId: null, // 32 byte (64 char) hex string
-    httpEndpoint: 'http://eosio:8888',
+    httpEndpoint: env.EOSNODE,
     mockTransactions: () => 'pass', // or 'fail'
     transactionHeaders: (expireInSeconds, callback) => {
       callback(null/*error*/, headers)
@@ -47,10 +51,10 @@ else{
 
   const eos = Eos.Localnet(config)
 
-  //define graphQL query schema
-  //some numbers like block_num and ref_block_prefix are better as String 
-  //since they are too large to be represented as a 32-bit Int type by GraphQL
-  const schemaFile = fs.readFileSync(__dirname + '/schema.graphqls', 'utf8')
+  /*define graphQL query schema
+    some numbers like block_num and ref_block_prefix are better as String 
+    since they are too large to be represented as a 32-bit Int type by GraphQL */
+  const schemaFile = fs.readFileSync(__dirname + '/models/schema.graphqls', 'utf8')
   const schema = buildSchema(schemaFile)
 
   //define root query
@@ -64,7 +68,7 @@ else{
             }
           )
           .catch(
-            (e) => {return {error: e.message}}
+            (e) => {return {error: String(e)}}
           )
   };
 
@@ -72,41 +76,70 @@ else{
   //the latest block
   setInterval(() => 
     { getBlockData()
-      .then(data => 
-        {
-          rootQuery.block = data
-          rootQuery.block.txn_count = data.input_transactions.length
+      .then( (data) => {
+        if (!data.error){
+          try{
+            rootQuery.block = data
+            rootQuery.block.txn_count = data.input_transactions.length
+          }
+          catch(err){
+            // console.log('bad');
+          }
         }
-      )
-      .catch(
-        (e) => {return {error: e.message}}
-      )
+      })
     }
-    , 500)
+    , 500);
 
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
     try{
-      return await eos.getBlock(blockNum);
+      const dbBlock = await Block.getBlockByNum(blockNum);
+      if(await dbBlock){
+        return await dbBlock;
+      }
+      else {
+        try{
+          const block = await eos.getBlock(blockNum);
+          try{
+            const addedBlock = await Block.addBlock(await block);
+            // console.log(await addedBlock);
+            return await block;
+          }
+          catch(err){
+            //error adding block to cache, just return block
+            return await block;
+          }
+        }
+        catch(err){
+          console.log("EOS API returned an error; check block number")
+          return {error: String(err)};
+        }
+      }
     }
-    catch(e){
-      console.log("EOS API returned an error; check block number")
-      return {error: e.message};
+    catch(err){
+      //block not in DB, trying to find it returned an error
+      try{
+        const addedBlock = await Block.addBlock(await block);
+        return await block;
+      }
+      catch(err){
+        //failed to add block to cache, return block
+        return await block;
+      }
     }
   }
 
-  //function for fetching block data
+  //function for fetching block data from db or EOS node
   async function getBlockData(blockNum){
     blockNum = blockNum || -1;
     if (blockNum === -1){
-      let data = eos.getInfo({});
-      const info = await data;
-      const lastBlockNum = info['head_block_num'];
-      return await fetchBlock(lastBlockNum)
-    } 
+      const data = await eos.getInfo({});
+      const lastBlockNum = await data['head_block_num'];
+      return await fetchBlock(await lastBlockNum);
+    }
     else {
-        return await fetchBlock(blockNum);
+      return await fetchBlock(blockNum);
     }
   }
 

@@ -106,3 +106,9 @@ A GraphQL API using node.js and express.js to fetch recent blocks from the EOS b
       }
     }
    ```
+   
+### Check blocks in cache:
+1) `docker exec -it mongo /bin/bash`
+2) `mongo`
+3) `use blocks`
+4) `db.blocks.find()`
