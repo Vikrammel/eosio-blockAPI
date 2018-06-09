@@ -12,7 +12,13 @@ A GraphQL API using node.js and express.js to fetch recent blocks from the EOS b
    ### basic query:
    ```GraphQL
     {
-      block {
+      lastBlock {
+        id
+        timestamp
+        txn_count
+        block_num
+      }
+      blocks(numbers: [1, 4]){
         id
         timestamp
         txn_count
@@ -23,7 +29,7 @@ A GraphQL API using node.js and express.js to fetch recent blocks from the EOS b
    ### full query:
    ```GraphQL
     {
-      block(numbers: [241, 142, 24]) {
+      blocks(numbers: [241, 142, 24]) {
         id
         timestamp
         block_num
@@ -96,13 +102,17 @@ A GraphQL API using node.js and express.js to fetch recent blocks from the EOS b
    ... or anything in between, eg:
    ```GraphQL
     {
-      block(numbers: [4]) {
+      blocks(numbers: [4]) {
         id
         block_num
         timestamp
         input_transactions {
           hex_data
         }
+      }
+      lastBlock{
+        id
+        block_num
       }
     }
    ```
