@@ -51,45 +51,6 @@ else{
 
   const eos = Eos.Localnet(config)
 
-  /*define graphQL query schema
-    some numbers like block_num and ref_block_prefix are better as String 
-    since they are too large to be represented as a 32-bit Int type by GraphQL */
-  const schemaFile = fs.readFileSync(__dirname + '/models/schema.graphqls', 'utf8')
-  const schema = buildSchema(schemaFile)
-
-  //define root query
-  let rootQuery = { 
-    block: getBlockData()
-          .then(data => 
-            { 
-              returnBlockObj = data
-              returnBlockObj["txn_count"] = data.input_transactions.length
-              return returnBlockObj
-            }
-          )
-          .catch(
-            (e) => {return {error: String(e)}}
-          )
-  };
-
-  //function to continuously update the root query every second so it remains
-  //the latest block
-  setInterval(() => 
-    { getBlockData()
-      .then( (data) => {
-        if (!data.error){
-          try{
-            rootQuery.block = data
-            rootQuery.block.txn_count = data.input_transactions.length
-          }
-          catch(err){
-            // console.log('bad');
-          }
-        }
-      })
-    }
-    , 500);
-
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
@@ -142,6 +103,39 @@ else{
       return await fetchBlock(blockNum);
     }
   }
+
+  /*define graphQL query schema;
+  some numbers like block_num and ref_block_prefix are better as String 
+  since they are too large to be represented as a 32-bit Int type by GraphQL */
+  const schemaFile = fs.readFileSync(__dirname + '/models/schema.graphqls', 'utf8')
+  const schema = buildSchema(schemaFile)
+
+    
+  //for resolving queries to api
+  let resolveBlocks = async function(args) {
+    if (args.numbers) {
+        const numbers = args.numbers;
+        const blocks = [];
+        for (const blockNum of numbers){
+          console.log(blockNum);
+          blocks.push( await getBlockData(blockNum));
+        } 
+        return await blocks;
+    } 
+    else {
+        return [await getBlockData()];
+    }
+  }
+
+  let resolveLastBlock = async function(args) {
+      return await getBlockData();
+  }
+
+  //define root query
+  let rootQuery = { 
+    blocks: resolveBlocks,
+    lastBlock: resolveLastBlock
+  };
 
   //temp tests
   // console.log(printSchema(schema))

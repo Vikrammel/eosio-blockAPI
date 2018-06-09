@@ -67,5 +67,6 @@ type Block {
     error: String
 }
 type Query {
-    block(numbers: [Int]): Block
+    blocks(numbers: [Int]!): [Block]
+    lastBlock: Block
 }

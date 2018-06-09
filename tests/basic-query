@@ -1,7 +1,14 @@
 {
-  block {
+  blocks(numbers:[1, 5]) {
     id
     timestamp
     txn_count
+    block_num
+  }
+  lastBlock{
+    id
+    timestamp
+    txn_count
+    block_num
   }
 }

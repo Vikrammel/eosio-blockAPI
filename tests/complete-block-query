@@ -1,5 +1,5 @@
 {
-  block(numbers: [241, 142, 24]) {
+  blocks(numbers: [241, 142, 24]) {
     id
     timestamp
     block_num
