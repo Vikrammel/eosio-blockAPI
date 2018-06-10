@@ -7,12 +7,12 @@ const fs = require('fs')
 const util = require('util')
 
 //set up output file for tests
-const outfile = fs.createWriteStream(__dirname + '/api-tests-output.txt', { flags: 'a' })
+const outfile = fs.createWriteStream(__dirname + '/api-tests-output.txt', { flags: 'a' });
+fs.writeFile(__dirname + '/api-tests-output.txt', '', () =>{} );
 
 // redirect stdout / stderr by overloading console.log
-console.log = function(d) { //
-    outfile.write(util.format(d) + '\n');
-    outfile.write(util.format(d) + '\n');
+console.log = function(d, callback) { //
+    outfile.write(util.format(d) + '\n', callback)
   };
 
 //API server url = env.API_SERVER
@@ -79,15 +79,32 @@ let options = {
     body: {
         query: "{ " + lastBlockQuery + " }"
     },
-    json: true // Automatically stringifies the body to JSON
+    json: true
 };
 
-req(options)
-    .then(function (parsedBody) {
-        // POST succeeded...
-        console.log(parsedBody)
-    })
-    .catch(function (err) {
-        // POST failed...
-        console.log(err)
-    });
+//test fetching the last block
+console.log("***** Last Block Test ***** \n", () => {
+    req(options)
+        .then(function (parsedBody) {
+            // POST succeeded...
+            console.log(parsedBody, ()=>{});
+        })
+        .catch(function (err) {
+            // POST failed...
+            console.log(err, ()=>{});
+        });
+    }
+);
+
+//test fetching multiple blocks
+console.log("***** Multi-Block Test ***** \n", function() {
+    options.body.query = "{ " + multiBlockQuery + " }";
+    req(options)
+        .then(function (respBody) {
+            console.log(respBody, ()=>{});
+        })
+        .catch(function (err) {
+            console.log(err, ()=>{});
+        });
+});
+

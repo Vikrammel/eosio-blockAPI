@@ -1,63 +1,12 @@
+***** Last Block Test ***** 
+
+***** Multi-Block Test ***** 
+
 { data:
    { lastBlock:
       { id:
-         '000005f4e66c1e857f9b762afe43b980464a688eb01a84163074d27a941878dd',
-        timestamp: '2018-06-05T07:26:35.000',
+         '000008561cac36bf084cb2ae115f90a17634d420db07170164c49147b03a04ff',
+        timestamp: '2018-06-10T09:27:59.000',
         txn_count: null,
-        block_num: '1524' } } }
-ReferenceError: log_stdout is not defined
-    at Console.console.log (/usr/src/app/API-tests.js:15:5)
-    at /usr/src/app/API-tests.js:88:17
-    at tryCatcher (/usr/src/app/node_modules/bluebird/js/release/util.js:16:23)
-    at Promise._settlePromiseFromHandler (/usr/src/app/node_modules/bluebird/js/release/promise.js:512:31)
-    at Promise._settlePromise (/usr/src/app/node_modules/bluebird/js/release/promise.js:569:18)
-    at Promise._settlePromise0 (/usr/src/app/node_modules/bluebird/js/release/promise.js:614:10)
-    at Promise._settlePromises (/usr/src/app/node_modules/bluebird/js/release/promise.js:693:18)
-    at Async._drainQueue (/usr/src/app/node_modules/bluebird/js/release/async.js:133:16)
-    at Async._drainQueues (/usr/src/app/node_modules/bluebird/js/release/async.js:143:10)
-    at Immediate.Async.drainQueues [as _onImmediate] (/usr/src/app/node_modules/bluebird/js/release/async.js:17:14)
-    at runCallback (timers.js:696:18)
-    at tryOnImmediate (timers.js:667:5)
-    at processImmediate (timers.js:649:5)
-{ data:
-   { lastBlock:
-      { id:
-         '000005fd9a70781de2e7db8cfd38090ccea1c4fe953c8b56e6adb720c36fa41f',
-        timestamp: '2018-06-05T07:26:39.500',
-        txn_count: null,
-        block_num: '1533' } } }
-{ data:
-   { lastBlock:
-      { id:
-         '000005fd9a70781de2e7db8cfd38090ccea1c4fe953c8b56e6adb720c36fa41f',
-        timestamp: '2018-06-05T07:26:39.500',
-        txn_count: null,
-        block_num: '1533' } } }
-{ data:
-   { lastBlock:
-      { id:
-         '00000682fff8071d34e62254c9c3bf6fab1cb3a3202b0f6e7463c04fe9802c99',
-        timestamp: '2018-06-05T07:27:46.000',
-        txn_count: null,
-        block_num: '1666' } } }
-{ data:
-   { lastBlock:
-      { id:
-         '00000682fff8071d34e62254c9c3bf6fab1cb3a3202b0f6e7463c04fe9802c99',
-        timestamp: '2018-06-05T07:27:46.000',
-        txn_count: null,
-        block_num: '1666' } } }
-{ data:
-   { lastBlock:
-      { id:
-         '0000068d0ce376b5432c8756d612d09a10b2420a567fef58c3fda06787db8988',
-        timestamp: '2018-06-05T07:27:51.500',
-        txn_count: null,
-        block_num: '1677' } } }
-{ data:
-   { lastBlock:
-      { id:
-         '0000068d0ce376b5432c8756d612d09a10b2420a567fef58c3fda06787db8988',
-        timestamp: '2018-06-05T07:27:51.500',
-        txn_count: null,
-        block_num: '1677' } } }
+        block_num: '2134' } } }
+{ data: { blocks: [ [Object], [Object] ] } }
