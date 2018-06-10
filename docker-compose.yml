@@ -1,5 +1,13 @@
 version: "3"
+
+# networks:
+
+#   eos-blocks-graphql-api_default:
+#     external:
+#       name: eos-blocks-graphql-api_default
+
 services:
+
   eosio:
     image: eosio/eos:dawn3x
     ports:
@@ -11,6 +19,7 @@ services:
       - ./eosio-volume/data:/opt/eosio/var
     logging:
       driver: none
+
   api-server:
     container_name: api-server
     build:
@@ -22,6 +31,7 @@ services:
       - eosio
     volumes:
       - ./api-server:/usr/src/app
+
   mongo:
     container_name: mongo
     image: mongo
@@ -29,5 +39,7 @@ services:
       - data:/data/db
     ports:
       - "27017:27017"
+
 volumes:
+
   data:
