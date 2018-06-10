@@ -51,6 +51,51 @@ else{
 
   const eos = Eos.Localnet(config)
 
+  // Usage with options (options are always optional)
+//   const options = {broadcast: false}
+
+//   eos.transfer({from: 'inita', to: 'initb', quantity: '1 SYS', memo: ''}, options)
+
+//   eos.transaction({
+//     actions: [
+//       {
+//         account: 'eosio.token',
+//         name: 'transfer',
+//         authorization: [{
+//           actor: 'inita',
+//           permission: 'active'
+//         }],
+//         data: {
+//           from: 'inita',
+//           to: 'initb',
+//           quantity: '7 SYS',
+//           memo: ''
+//         }
+//       }
+//     ]
+//   })
+
+// // push mock transactions
+// setInterval(
+//   () => {eos.transaction({
+//   actions: [
+//     {
+//       account: 'eosio.token',
+//       name: 'transfer',
+//       authorization: [{
+//         actor: 'inita',
+//         permission: 'active'
+//       }],
+//       data: {
+//         from: 'inita',
+//         to: 'initb',
+//         quantity: '7 SYS',
+//         memo: ''
+//       }
+//     }
+//   ]
+// })}, 50);
+
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
@@ -117,7 +162,7 @@ else{
         const numbers = args.numbers;
         const blocks = [];
         for (const blockNum of numbers){
-          console.log(blockNum);
+          // console.log(blockNum);
           blocks.push( await getBlockData(blockNum));
         } 
         return await blocks;
