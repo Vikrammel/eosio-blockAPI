@@ -12,8 +12,12 @@ const mongoose = require('mongoose');
 const env = require('./env');
 const Block = require('./models/block');
 
+//create connection with poolSize 1 so each thread only connects once to db
+mongoose.connect(env.DATABASE, {poolSize: 1});
+
 // coordinator thread for multi-threading
 if (cluster.isMaster){
+
   const cpuCount = require('os').cpus().length;
   for (let i = 0; i< cpuCount; i++){
     cluster.fork();
@@ -33,7 +37,6 @@ else{
   const port = process.env.API_PORT || 3001;
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(bodyParser.json());
-  mongoose.connect(env.DATABASE);
 
   //eos config options
   const config = {
@@ -49,52 +52,7 @@ else{
     sign: true
   }
 
-  const eos = Eos.Localnet(config)
-
-  // Usage with options (options are always optional)
-//   const options = {broadcast: false}
-
-//   eos.transfer({from: 'inita', to: 'initb', quantity: '1 SYS', memo: ''}, options)
-
-//   eos.transaction({
-//     actions: [
-//       {
-//         account: 'eosio.token',
-//         name: 'transfer',
-//         authorization: [{
-//           actor: 'inita',
-//           permission: 'active'
-//         }],
-//         data: {
-//           from: 'inita',
-//           to: 'initb',
-//           quantity: '7 SYS',
-//           memo: ''
-//         }
-//       }
-//     ]
-//   })
-
-// // push mock transactions
-// setInterval(
-//   () => {eos.transaction({
-//   actions: [
-//     {
-//       account: 'eosio.token',
-//       name: 'transfer',
-//       authorization: [{
-//         actor: 'inita',
-//         permission: 'active'
-//       }],
-//       data: {
-//         from: 'inita',
-//         to: 'initb',
-//         quantity: '7 SYS',
-//         memo: ''
-//       }
-//     }
-//   ]
-// })}, 50);
+  const eos = Eos.Localnet(config);
 
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
@@ -181,16 +139,6 @@ else{
     blocks: resolveBlocks,
     lastBlock: resolveLastBlock
   };
-
-  //temp tests
-  // console.log(printSchema(schema))
-  // setInterval(getBlockData().then(data => console.log(data)));
-  // getBlockData().then(data => {
-  //   console.log(data)
-  //   console.log(data.regions)
-  //   console.log(data.regions[0].cycles_summary[0][0].transactions)
-  //   }
-  // )
 
   //api-route for eos block info
   app.use('/blocks', graphqlHTTP({

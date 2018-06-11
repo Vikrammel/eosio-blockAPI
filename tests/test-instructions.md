@@ -4,4 +4,4 @@
 3) `cd` into tests/
 4) run: 
     `docker-compose up --build`
-5) view test output in tests/api-tests-output.txt
+5) view test output in tests/test-server/api-tests-output.txt
