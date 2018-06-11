@@ -19,43 +19,41 @@ console.log = function(d, callback) { //
 
 //eos config options
 const config = {
-    chainId: null, // 32 byte (64 char) hex string
+    // chainId: null, // 32 byte (64 char) hex string
     httpEndpoint: env.EOSNODE,
+    keyProvider: '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3', // WIF string or array of keys..
     mockTransactions: () => 'pass', // or 'fail'
-        transactionHeaders: (expireInSeconds, callback) => {
-        callback(null/*error*/, headers)
-    },
+    //     transactionHeaders: (expireInSeconds, callback) => {
+    //     callback(null/*error*/, {'ref_block_num'})
+    // },
     expireInSeconds: 60,
-    broadcast: true,
-    debug: false,
-    sign: true
+    // broadcast: false,
+    // debug: true,
+    // sign: true
 }
 
 const eos = Eos.Localnet(config)
 
-
-// eos = Eos({keyProvider: '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3'})
-
 // returns Promise
-// setInterval(
-//     eos.transaction({
-//     actions: [
-//       {
-//         account: 'eosio.token',
-//         name: 'transfer',
-//         authorization: [{
-//           actor: 'inita',
-//           permission: 'active'
-//         }],
-//         data: {
-//           from: 'inita',
-//           to: 'initb',
-//           quantity: '7 SYS',
-//           memo: ''
-//         }
-//       }
-//     ]
-//   }), 50)
+setInterval( async function (){
+    console.log(await eos.transaction({
+    actions: [
+      {
+        account: 'eosio.token',
+        name: 'transfer',
+        authorization: [{
+          actor: 'inita',
+          permission: 'active'
+        }],
+        data: {
+          from: 'inita',
+          to: 'initb',
+          quantity: '7 SYS',
+          memo: ''
+        }
+      }
+    ]
+  }).catch((err) => {console.log(err)}))}, 5000)
 
 const lastBlockQuery = 
 `lastBlock{
@@ -71,7 +69,7 @@ const multiBlockQuery =
     timestamp
     txn_count
     block_num
-  }`
+  }`;
 
 let options = {
     method: 'POST',
