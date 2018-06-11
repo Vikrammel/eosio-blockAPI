@@ -1,9 +1,9 @@
 {
-  "name": "api-server",
+  "name": "test-server",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "eosjs": "^13.0.1",
+    "eosjs": "^8",
     "fs": "0.0.1-security",
     "request": "^2.87.0",
     "request-promise": "^4.2.2",

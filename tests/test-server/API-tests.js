@@ -22,7 +22,7 @@ const config = {
     // chainId: null, // 32 byte (64 char) hex string
     httpEndpoint: env.EOSNODE,
     keyProvider: '5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3', // WIF string or array of keys..
-    mockTransactions: () => 'pass', // or 'fail'
+    // mockTransactions: () => 'pass', // or 'fail'
     //     transactionHeaders: (expireInSeconds, callback) => {
     //     callback(null/*error*/, {'ref_block_num'})
     // },
