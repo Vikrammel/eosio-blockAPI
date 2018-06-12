@@ -57,22 +57,22 @@ else{
   //wrap EOS API call to fetch block in try/catch function 
   //to handle bad block nums since it's called multiple times
   async function fetchBlock(blockNum){
-    try{
+    // try{
       const dbBlock = await Block.getBlockByNum(blockNum);
-      if(await dbBlock){
-        return await dbBlock;
+      if(dbBlock){
+        return dbBlock;
       }
       else {
         try{
           const block = await eos.getBlock(blockNum);
           try{
-            const addedBlock = await Block.addBlock(await block);
+            const addedBlock = await Block.addBlock(block);
             // console.log(await addedBlock);
-            return await block;
+            return block;
           }
           catch(err){
             //error adding block to cache, just return block
-            return await block;
+            return block;
           }
         }
         catch(err){
@@ -80,18 +80,6 @@ else{
           return {error: String(err)};
         }
       }
-    }
-    catch(err){
-      //block not in DB, trying to find it returned an error
-      try{
-        const addedBlock = await Block.addBlock(await block);
-        return await block;
-      }
-      catch(err){
-        //failed to add block to cache, return block
-        return await block;
-      }
-    }
   }
 
   //function for fetching block data from db or EOS node
@@ -99,8 +87,8 @@ else{
     blockNum = blockNum || -1;
     if (blockNum === -1){
       const data = await eos.getInfo({});
-      const lastBlockNum = await data['head_block_num'];
-      return await fetchBlock(await lastBlockNum);
+      const lastBlockNum = data['head_block_num'];
+      return await fetchBlock(lastBlockNum);
     }
     else {
       return await fetchBlock(blockNum);
@@ -121,7 +109,7 @@ else{
         const blocks = [];
         for (const blockNum of numbers){
           // console.log(blockNum);
-          blocks.push( await getBlockData(blockNum));
+          blocks.push(await getBlockData(blockNum));
         } 
         return await blocks;
     } 

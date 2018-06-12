@@ -17,8 +17,8 @@ services:
     volumes:
       - ./eosio-volume/config:/opt/eosio/bin/data-dir
       - ./eosio-volume/data:/opt/eosio/var
-    # logging:
-    #   driver: none
+    logging:
+      driver: none
 
   api-server:
     container_name: api-server

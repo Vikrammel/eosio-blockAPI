@@ -5,7 +5,7 @@ networks:
   eos-blocks-graphql-api_default:
     external:
       name: eos-blocks-graphql-api_default
-      
+
 services:
 
   test:
@@ -13,16 +13,7 @@ services:
     build:
       context: ./test-server
       dockerfile: Dockerfile-API-tests
-#    ports:
-#      - "3002:3002"
-    # links:
-    #   - eosio
-    #   - api-server
     volumes:
       - ./test-server:/usr/src/app
     networks:
       - eos-blocks-graphql-api_default
-
-# volumes:
-
-#   data:

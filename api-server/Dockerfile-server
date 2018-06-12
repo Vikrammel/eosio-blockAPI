@@ -7,4 +7,4 @@ COPY . /usr/src/app
 
 EXPOSE 3001
 
-CMD npm install; npm install nodemon -g; nodemon server.js
+CMD npm install; npm start server.js
