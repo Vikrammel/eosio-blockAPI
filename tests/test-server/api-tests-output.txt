@@ -1,208 +1,31 @@
 ***** Last Block Test ***** 
 
-***** Multi-Block Test ***** 
-
 { data:
    { lastBlock:
       { id:
-         '000000537e338661e7981fa7f724515981fde2652d83eea4031fbf50b530838b',
-        timestamp: '2018-06-05T07:14:34.500',
+         '000001fcf1ab01cfa44e7eb4540330b8ac18e8e62ab993d7c84ef8fdc4d66e02',
+        timestamp: '2018-06-05T07:18:07.000',
         txn_count: null,
-        block_num: '83' } } }
-{ data: { blocks: [ [Object], [Object] ] } }
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
-{ Error: {"code":500,"message":"Internal Service Error","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"unknown key","file":"http_plugin.cpp","line_number":202,"method":"operator()"}]}}
-    at /usr/src/app/node_modules/eosjs-api/lib/apigen.js:102:23
-    at run (/usr/src/app/node_modules/core-js/modules/es6.promise.js:75:22)
-    at /usr/src/app/node_modules/core-js/modules/es6.promise.js:92:30
-    at flush (/usr/src/app/node_modules/core-js/modules/_microtask.js:18:9)
-    at process._tickCallback (internal/process/next_tick.js:61:11) status: 500, statusText: 'Internal Server Error' }
-undefined
+        block_num: '508' } } }
+
+
+***** Multi-Block Test ***** 
+
+(last block should be null)
+
+[ { id:
+     '000000014e56c63f42f778cfbc4cdbe8283ef91796a8636876e3ba6a2a202e75',
+    timestamp: '2018-06-09T23:08:22.500',
+    txn_count: null,
+    block_num: '1' },
+  { id:
+     '000000053b53f66d4a3f705f7125301de19867e1dd2bd8dbb2019ec37b879147',
+    timestamp: '2018-06-09T23:08:24.500',
+    txn_count: null,
+    block_num: '5' },
+  { id:
+     '0000000fc95f7f7033fe6d9eb28e7921ce340c3f0087d08f7be33d94da195cc8',
+    timestamp: '2018-06-09T23:08:29.500',
+    txn_count: null,
+    block_num: '15' },
+  { id: null, timestamp: null, txn_count: null, block_num: null } ]
